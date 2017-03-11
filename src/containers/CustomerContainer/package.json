@@ -1,0 +1,6 @@
+{
+  "name": "CustomerContainer",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./CustomerContainer.js"
+}
