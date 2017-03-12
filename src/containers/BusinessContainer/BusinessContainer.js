@@ -75,6 +75,7 @@ class BusinessContainer extends Component {
         console.log(error)
         console.log(resp)
         console.log(body)
+
         return;
         const business = this.state.business;
         business.discounts = business.discounts.map(d => {
@@ -105,15 +106,8 @@ class BusinessContainer extends Component {
           business,
           focusLastRow: false
         });
-      });
-    }
-
-    return request.post({
-      method:'POST',
-      url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals',
-      body:JSON.stringify(data),
-      json:true
-    }, (err, resp) => { console.log('DONE', resp)})
+      }
+    )
   }
 
   handleCreateRow() {

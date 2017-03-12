@@ -19,7 +19,6 @@ class CustomerContainer extends Component {
   }
 
   getAllRestaurants(geoLocation) {
-    console.log(' fuuuu');
     getRestaurants(geoLocation)
       .then(restaurants => this.setState({ restaurants, isLoaded: true }))
       .catch(err => this.setState({ isLoaded: true, hasError: true }));
