@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Glyphicon, Modal } from 'react-bootstrap';
 import './BusinessContainer.css';
-import Stars from '../../components/stars';
 import DiscountsTable from '../../components/DiscountsTable';
 import request from 'browser-request';
 
@@ -89,7 +88,6 @@ class BusinessContainer extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <Stars stars={4}/>
         <h1>{this.state.business.name}</h1>
         <Button bsStyle="success" onClick={this.handleCreateRow} className="create-button"><Glyphicon glyph="plus" /> New Discount</Button>
         <DiscountsTable
