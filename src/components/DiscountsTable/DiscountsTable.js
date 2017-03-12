@@ -7,9 +7,9 @@ class DiscountsTable extends Component {
     // @TODO Select different days logic
     return (
       <BootstrapTable data={this.props.discounts} striped={true} hover={true}>
-        <TableHeaderColumn dataField="dealDayOfWeek" isKey={true} dataAlign="center">Day of the Week</TableHeaderColumn>
-        <TableHeaderColumn dataField="dealPercentActivated" dataAlign="center">Occupancy %</TableHeaderColumn>
-        <TableHeaderColumn dataField="dealPercentDiscount" dataAlign="center">Discount %</TableHeaderColumn>
+        <TableHeaderColumn dataField="dayOfWeek" isKey={true} dataAlign="center">Day of the Week</TableHeaderColumn>
+        <TableHeaderColumn dataField="percentActivated" dataAlign="center">Occupancy %</TableHeaderColumn>
+        <TableHeaderColumn dataField="percentDiscount" dataAlign="center">Discount %</TableHeaderColumn>
       </BootstrapTable>
     );
   }
