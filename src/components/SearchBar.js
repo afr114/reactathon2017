@@ -23,16 +23,20 @@ export default class SearchBar extends React.Component {
 
 	render() {
 		return (
+		<div className="flex-search-container">
 			<form onSubmit={this.onFormSubmit} className="input-group">
 				<input
 					placeholder="Enter Location"
 					className="form-control"
 					value={this.state.searchTerm}
 					onChange={this.onInputChange} />
-				<span className="input-group-btn">
-					<button type="submit" className="btn btn-secondary">Submit</button>
-				</span>
+					<span className="input-group-btn">
+						<button type="submit" className="btn btn-secondary red">
+							<i className="fa fa-search fa-lg white" aria-hidden="true"></i>
+						</button>
+					</span>
 			</form>
+		</div>
 		);
 	}
 }
