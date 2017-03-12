@@ -5,7 +5,7 @@ import { getRestaurants } from '../../opentableHelper.js';
 import RestaurantCardGrid from '../../components/RestaurantCardGrid';
 import RestaurantCard from '../../components/RestaurantCard';
 
-
+console.log(SearchBar)
 class CustomerContainer extends Component {
   constructor(...args) {
     super(...args);
@@ -43,8 +43,8 @@ class CustomerContainer extends Component {
   render() {
     return (
       <div className="customer-container">
-        <SearchBar/>
         <RestaurantCardGrid>
+          <SearchBar/>
           <RestaurantCard/>
           <RestaurantCard/>
           <RestaurantCard/>

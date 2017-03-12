@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { getLocationInfo } from '/google_api.js';
+import { getLocationInfo } from './google_api.js';
 
-export class SearchBar extends React.Component {
+export default class SearchBar extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -24,7 +24,7 @@ export class SearchBar extends React.Component {
 	render() {
 		return (
 			<form onSubmit={this.onFormSubmit} className="input-group">
-				<input 
+				<input
 					placeholder="Enter Location"
 					className="form-control"
 					value={this.state.searchTerm}
