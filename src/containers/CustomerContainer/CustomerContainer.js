@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './CustomerContainer.css';
+import SearchBar from '../../components/SearchBar';
 
 class CustomerContainer extends Component {
   render() {
     return (
       <div className="customer-container">
-        This is the customer container
+        <SearchBar/>
       </div>
     );
   }
