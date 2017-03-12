@@ -65,14 +65,16 @@ class DaysEditor extends Component {
       );
     });
     return (
-      <div className="day-wrapper" ref='inputRef'>
-        { dayCheckBoxes }
-        <button
-          className='btn btn-info btn-xs textarea-save-btn'
-          onClick={ this.updateData }>
-          save
-        </button>
-      </div>
+      <span>
+        <div className="day-wrapper" ref='inputRef'>
+          { dayCheckBoxes }
+          <button
+            className='btn btn-info btn-xs textarea-save-btn'
+            onClick={ this.updateData }>
+            save
+          </button>
+        </div>
+      </span>
     );
   }
 }
