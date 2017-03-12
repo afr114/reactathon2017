@@ -6,8 +6,8 @@ provider:
   name: aws
   runtime: nodejs4.3
   environment:
-    DEALS_DYNAMODB_TABLE: deals${self:service}-${opt:stage, self:provider.stage}
-    AVAILS_DYNAMODB_TABLE: deals${self:service}-${opt:stage, self:provider.stage}
+    DEALS_DYNAMODB_TABLE: deals-${self:service}-${opt:stage, self:provider.stage}
+    AVAILS_DYNAMODB_TABLE: avails-${self:service}-${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
       Action:

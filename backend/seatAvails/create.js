@@ -8,18 +8,15 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 module.exports.create = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
-  if (typeof data.text !== 'string') {
-    console.error('Validation Failed');
-    callback(new Error('Couldn\'t create the seatAvail item.'));
-    return;
-  }
 
   const params = {
     TableName: process.env.AVAILS_DYNAMODB_TABLE,
     Item: {
       id: data.rid,
-      seats: data.totalSeats,
-      avails: data.seatAvails
+      seats: data.seats,
+      avails: data.avails, 
+      createdAt: timestamp, 
+      updatedAt: timestamp
     },
   };
 

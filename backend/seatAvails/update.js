@@ -21,15 +21,16 @@ module.exports.update = (event, context, callback) => {
       id: event.pathParameters.id,
     },
     ExpressionAttributeNames: {
-      '#seatAvailText': 'text'
+      '#avails': 'avails',
+      '#seats': 'seats'
 
     },
     ExpressionAttributeValues: {
-      ':seatAvailText': data.text,
-      ':seatAvailArchived': data.seatAvailArchived,
-      ':updatedAt': timestamp,
+      ':avails': data.text,
+      ':seats': data.seatAvailArchived, 
+      ':updatedAt': timestamp
     },
-    UpdateExpression: 'SET #seatAvailText = :seatAvailText, seatAvailArchived = :seatAvailArchived, updatedAt = :updatedAt',
+    UpdateExpression: 'SET #seats = :seats, #avails = :avails, updatedAt = :updatedAt',
     ReturnValues: 'ALL_NEW',
   };
 
