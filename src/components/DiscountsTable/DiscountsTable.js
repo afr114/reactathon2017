@@ -98,7 +98,6 @@ class GenericEditor extends Component {
   }
 
   changeValue(ev) {
-    console.log(ev.target)
     this.setState({ value: ev.target.value });
   }
 
