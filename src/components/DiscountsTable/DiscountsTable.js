@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const ReactDom = require('react-dom');
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Button, Glyphicon } from 'react-bootstrap';
 import Multiselect from 'react-bootstrap-multiselect';
@@ -16,7 +17,6 @@ const dropdownDays = {
 
 const daysFormatter = (cell, row) => (<span>{ (cell.map(c => dropdownDays[c]) || []).join(', ') }</span>);
 const createDaysEditor = (onUpdate, props) => (<DaysEditor onUpdate={ onUpdate } {...props}/>);
-const days = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ];
 
 class DaysEditor extends Component {
   constructor(props) {
@@ -78,6 +78,15 @@ class DaysEditor extends Component {
 }
 
 class DiscountsTable extends Component {
+  componentDidUpdate (prevProps, prevState){
+    if (this.props.focusLastRow) {
+      var dom = ReactDom.findDOMNode(this);
+      const tds = dom.querySelectorAll("td");
+      if (tds) {
+        tds[tds.length - 5].click();
+      }
+    }
+  }
   render() {
     const cellEditProp = {
       mode: 'click'

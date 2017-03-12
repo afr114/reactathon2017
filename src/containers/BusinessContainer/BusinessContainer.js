@@ -33,7 +33,8 @@ class BusinessContainer extends Component {
           percentActivated: 20,
           percentDiscount: 40,
         }]
-      }
+      },
+      focusLastRow: false,
     };
     this.handleCreate = this.handleCreate.bind(this);
     this.handleCreateRow = this.handleCreateRow.bind(this);
@@ -58,8 +59,24 @@ class BusinessContainer extends Component {
     request.post({
       method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(data), json:true },
       function(resp) {
-        // @TODO update with id
-        console.log(resp);
+        console.log('DONE', resp, this.state)
+        const business = this.state.business;
+        business.discounts = business.discounts.map(d => {
+          if (d.id === object.id) {
+            return {
+              id: resp.id,
+              title: resp.title,
+              dayOfWeek: resp.dayOfWeek,
+              percentActivated: resp.percentActivated * 100,
+              percentDiscount: resp.percentDiscount * 100,
+            }
+          }
+          return d;
+        })
+        this.setState({
+          business,
+          focusLastRow: false
+        });
     });
   }
 
@@ -72,17 +89,19 @@ class BusinessContainer extends Component {
       percentDiscount: 0,
     })
     // @TODO Focus on first field
-    this.setState({ business });
+    this.setState({ business, focusLastRow: true });
   }
 
   handleDelete(id) {
     const business = this.state.business;
     business.discounts = business.discounts.filter(d => d.id !== id);
     this.setState({ business });
+    this.setState({ focusLastRow: false });
   }
 
   handleUpdate() {
     console.log('UPDATING LOGIC');
+    this.setState({ focusLastRow: false });
   }
 
   render() {
@@ -91,6 +110,7 @@ class BusinessContainer extends Component {
         <h1>{this.state.business.name}</h1>
         <Button bsStyle="success" onClick={this.handleCreateRow} className="create-button"><Glyphicon glyph="plus" /> New Discount</Button>
         <DiscountsTable
+          focusLastRow={this.state.focusLastRow}
           discounts={this.state.business.discounts}
           update={this.handleUpdate}
           create={this.handleCreate}
