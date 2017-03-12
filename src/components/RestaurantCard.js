@@ -19,7 +19,7 @@ export default class RestaurantCard extends Component {
         <div className="flex-row">
         <RestaurantImage {...this.props.img}/>
         <RestaurantInfo {...this.props}/>
-        <OpenTableWidget/>
+        <OpenTableWidget rid={this.props.rid}/>
         </div>
       </div>
     )
