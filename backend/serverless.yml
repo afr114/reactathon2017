@@ -1,0 +1,137 @@
+service: serverless-rest-api-with-dynamodb
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  environment:
+    DEALS_DYNAMODB_TABLE: deals-${self:service}-${opt:stage, self:provider.stage}
+    AVAILS_DYNAMODB_TABLE: avails-${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DEALS_DYNAMODB_TABLE}"
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.AVAILS_DYNAMODB_TABLE}"
+
+functions:
+  dealsCreate:
+    handler: deals/create.create
+    events:
+      - http:
+          path: deals
+          method: post
+          cors: true
+
+  dealsList:
+    handler: deals/list.list
+    events:
+      - http:
+          path: deals
+          method: get
+          cors: true
+
+  dealsGet:
+    handler: deals/get.get
+    events:
+      - http:
+          path: deals/{id}
+          method: get
+          cors: true
+
+  dealsUpdate:
+    handler: deals/update.update
+    events:
+      - http:
+          path: deals/{id}
+          method: put
+          cors: true
+
+  dealsDelete:
+    handler: deals/delete.delete
+    events:
+      - http:
+          path: deals/{id}
+          method: delete
+          cors: true
+
+  seatAvailsCreate:
+    handler: seatAvails/create.create
+    events:
+      - http:
+          path: seatAvails
+          method: post
+          cors: true
+
+  seatAvailsList:
+    handler: seatAvails/list.list
+    events:
+      - http:
+          path: seatAvails
+          method: get
+          cors: true
+
+  seatAvailsGet:
+    handler: seatAvails/get.get
+    events:
+      - http:
+          path: seatAvails/{id}
+          method: get
+          cors: true
+
+  seatAvailsUpdate:
+    handler: seatAvails/update.update
+    events:
+      - http:
+          path: seatAvails/{id}
+          method: put
+          cors: true
+
+resources:
+  Resources:
+    DealsDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DEALS_DYNAMODB_TABLE}
+    SeatAvailsDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.AVAILS_DYNAMODB_TABLE}
