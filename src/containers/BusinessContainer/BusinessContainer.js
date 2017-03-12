@@ -56,7 +56,7 @@ class BusinessContainer extends Component {
     }
     console.log(data);
     request.post({
-      method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(data), json:true, withCredentials: true},
+      method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(data), json:true },
       function(resp) {
         // @TODO update with id
         console.log(resp);
