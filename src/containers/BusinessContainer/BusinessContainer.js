@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Glyphicon, Modal } from 'react-bootstrap';
 import './BusinessContainer.css';
 import DiscountsTable from '../../components/DiscountsTable';
+import request from 'browser-request';
+
 
 class BusinessContainer extends Component {
   constructor(...args) {
@@ -10,9 +12,9 @@ class BusinessContainer extends Component {
       showModal: false,
       formInput: {
         title: '', 
-        dealDayOfWeek: '',
-        dealPercentActivated: '',
-        dealPercentDiscount: ''
+        dayOfWeek: '',
+        percentActivated: '',
+        percentDiscount: ''
       },
       business: {
         name: 'Business Name',
@@ -20,16 +22,16 @@ class BusinessContainer extends Component {
         {
           id: 1,
           title: '20% off at 50% occ',
-          dealDayOfWeek: [ 'M', 'TU', 'W' ],
-          dealPercentActivated: 0.5,
-          dealPercentDiscount: 0.3,
+          dayOfWeek: [ 'M', 'TU', 'W' ],
+          percentActivated: 0.5,
+          percentDiscount: 0.3,
         },
         {
           id: 2,
           title: '40% off at 20% occ',
-          dealDayOfWeek: [ 'TU' ],
-          dealPercentActivated: 0.2,
-          dealPercentDiscount: 0.4,
+          dayOfWeek: [ 'TU' ],
+          percentActivated: 0.2,
+          percentDiscount: 0.4,
         }]
       }
     };
@@ -46,27 +48,9 @@ class BusinessContainer extends Component {
   onInputChange(event) {
     const formField = event.target.id
     let update = {}
-    console.log()
-
+    update[formField] = event.target.value;
     // overwrite the property that is being updated and merge the reset of the properties
-    switch (formField) {
-      case 'title':
-        update = { title: event.target.value };
-        break;
-      case 'dealDayOfWeek':
-        update = { dealDayOfWeek: event.target.value }
-        break;
-      case 'dealPercentActivated':
-        update = { dealPercentActivated: event.target.value }
-        break;
-      case 'dealPercentDiscount':
-        update = { dealPercentDiscount: event.target.value }
-        break;
-      default:
-        break;
-    }
     const formInput = Object.assign({}, this.state.formInput, update);
-    console.log(formInput)
     this.setState({ formInput } );
     
     
@@ -74,15 +58,23 @@ class BusinessContainer extends Component {
 
 
   handleCreate() {
-    console.log('Creating logic')
-    const business = this.state.business;
-    business.discounts.push({
-      dealDayOfWeek: [],
-      dealPercentActivated: '',
-      dealPercentDiscount: '',
-    })
-    // @TODO Focus on first field
-    this.setState({ business });
+    var formData = Object.assign({}, this.state.formInput, {text: '', rid: '12345'});
+    console.log(formData);
+    request.post({
+      method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(formData), json:true, withCredentials: true}, 
+      function(resp) {
+        console.log(resp);
+        this.toggleModal()
+    });
+//    console.log('Creating logic')
+//    const business = this.state.business;
+//    business.discounts.push({
+//      dayOfWeek: [],
+//      percentActivated: '',
+//      percentDiscount: '',
+//    })
+//    // @TODO Focus on first field
+//    this.setState({ business });
   }
 
   render() {
@@ -108,25 +100,25 @@ class BusinessContainer extends Component {
               <input
                 placeholder='["SU", "M","TU","W","TH","F","SA"]'
                 className="form-control"
-                id='dealDayOfWeek'
-                value={this.state.formInput.dealDayOfWeek}
+                id='dayOfWeek'
+                value={this.state.formInput.dayOfWeek}
                 onChange={this.onInputChange} />
               <input
                 placeholder="0.5"
                 className="form-control"
-                id='dealPercentActivated'
-                value={this.state.formInput.dealPercentActivated}
+                id='percentActivated'
+                value={this.state.formInput.percentActivated}
                 onChange={this.onInputChange} />
               <input
                 placeholder="0.2"
                 className="form-control"
-                id='dealPercentDiscount'
-                value={this.state.formInput.dealPercentDiscount}
+                id='percentDiscount'
+                value={this.state.formInput.percentDiscount}
                 onChange={this.onInputChange} />
               <span className="input-group-btn">
-                <button type="submit" className="btn btn-secondary blue">
+                <Button onClick={this.handleCreate} className="btn btn-primary">
                   <i className="fa fa-plus fa-lg white" aria-hidden="true"></i>
-                </button>
+                </Button>
               </span>
             </form>
           </Modal.Body>
