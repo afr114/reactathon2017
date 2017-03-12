@@ -24,7 +24,7 @@ body {
 }
 
 #search-form {
-  width: 80%;
+  width: 100%;
   border: 1px solid #dce0e0 !important;
   box-shadow: 0 1px 3px 0 #dce0e0 !important;
   border-radius: 4px !important;
@@ -42,7 +42,8 @@ body {
 }
 
 .restaurant-card {
-  margin: 2%;
+  margin-top: 2%;
+  margin-bottom: 2%;
   border: 1px solid #dce0e0 !important;
   box-shadow: 0 1px 3px 0 #dce0e0 !important;
   border-radius: 4px !important;
@@ -63,4 +64,43 @@ body {
 
 .info-container {
   margin: 2%;
+}
+
+.content-wrapper {
+  width: 60%;
+}
+
+.image-size {
+  width: 242px;
+  height: 242px;
+}
+
+.restaurant-card {
+  height: 244px;
+}
+
+@media (max-width: 800px) {
+  .content-wrapper {
+    width: 100%;
+  }
+  .image-size {
+    width: 124px;
+    height: 124px;
+  }
+  .restaurant-card {
+    height: 126px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 800px) {
+  .content-wrapper {
+    width: 100%;
+  }
+  .image-size {
+    width: 180px;
+    height: 180px;
+  }
+  .restaurant-card {
+    height: 182px;
+  }
 }
