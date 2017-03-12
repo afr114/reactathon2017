@@ -5,7 +5,7 @@ const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-depe
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports.create = (event, context, callback) => {
+module.exports.generateAvailsChecks = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
 
@@ -13,6 +13,7 @@ module.exports.create = (event, context, callback) => {
     TableName: process.env.AVAILS_DYNAMODB_TABLE,
     Item: {
       id: data.rid,
+      omnivoreLocationID: data.omnivoreLocationID,
       seats: data.seats,
       avails: data.avails, 
       createdAt: timestamp, 
@@ -31,8 +32,7 @@ module.exports.create = (event, context, callback) => {
 
     // create a response
     const response = {
-      statusCode: 200,
-      body: JSON.stringify(result.Item),
+      statusCode: 200
     };
     callback(null, response);
   });
