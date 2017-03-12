@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RestaurantImage from './RestaurantImage';
+import RestaurantInfo from './RestaurantInfo';
 
 export default class RestaurantCard extends Component {
   constructor(props) {
@@ -9,7 +10,10 @@ export default class RestaurantCard extends Component {
   render() {
     return (
       <div className="restaurant-card">
-        <RestaurantImage/>
+        <div className="flex-row">
+        <RestaurantImage {...this.props.img}/>
+        <RestaurantInfo {...this.props}/>
+        </div>
       </div>
     )
   }

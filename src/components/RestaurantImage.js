@@ -3,7 +3,7 @@ import React from 'react';
 const RestaurantImage = (props) => {
   return (
     <div className="image-container">
-      <img src="https://resizer.otstatic.com/v2/photos/small/24099523.jpg" alt="test"/>
+      <img src={props.imgUrl} alt={props.alt} height={'248px'}/>
     </div>
   )
 }
