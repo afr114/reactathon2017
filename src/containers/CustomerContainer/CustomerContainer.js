@@ -6,7 +6,6 @@ import RestaurantCardGrid from '../../components/RestaurantCardGrid';
 import RestaurantCard from '../../components/RestaurantCard';
 import { listings } from '../../listings.js'
 
-console.log(SearchBar)
 class CustomerContainer extends Component {
   constructor(...args) {
     super(...args);

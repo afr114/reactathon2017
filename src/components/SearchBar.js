@@ -24,7 +24,7 @@ export default class SearchBar extends React.Component {
 	render() {
 		return (
 		<div className="flex-search-container">
-			<form onSubmit={this.onFormSubmit} className="input-group">
+			<form onSubmit={this.onFormSubmit} className="input-group" id="search-form">
 				<input
 					placeholder="Enter Location"
 					className="form-control"
