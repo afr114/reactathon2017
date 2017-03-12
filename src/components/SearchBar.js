@@ -15,9 +15,23 @@ export default class SearchBar extends React.Component {
 		this.setState({ searchTerm: event.target.value })
 	}
 
+
 	onFormSubmit(event) {
 		event.preventDefault();
-		this.props.getLocationInfo(this.state.searchTerm);
+		var location = this.state.searchTerm;
+		console.log(location);
+		var location = location.replace(/\s+/g, '+');
+		var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key=AIzaSyAY7_4Ja1beJEByz8uTmziyb7lmQld7B0s';
+			fetch(url)
+			.then(function (r) { return r.json(); })
+			.then(function (data) {
+				return {
+					lat: data.results[0].geometry.location.lat,
+					lng: data.results[0].geometry.location.lng
+				};
+		})
+		.catch(function (e) { console.log('oops'); });
+		
 		this.setState({ searchTerm: '' });
 	}
 
