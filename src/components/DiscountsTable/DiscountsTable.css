@@ -9,19 +9,17 @@
   // padding: 10px !important;
 }
 
-.react-bs-table td {
-  :not(.day-dropdown) {
-    height: 51px;
-    line-height: 33px !important;
-  }
+.react-bs-table td:not(.day-dropdown) {
+  height: 51px;
+  line-height: 33px !important;
 }
 
 .react-bs-table td:last-child {
-  width: 100px !important;
+  width: 105px !important;
 }
 
 .react-bs-table th:last-child {
-  width: 100px !important;
+  width: 105px !important;
 }
 
 .day-wrapper {
@@ -29,6 +27,10 @@
 }
 
 .day-checkbox {
+  margin-right: 5px !important;
+}
+
+.day-save {
   margin-right: 5px !important;
 }
 
