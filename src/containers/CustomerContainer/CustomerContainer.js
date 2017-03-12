@@ -4,13 +4,14 @@ import SearchBar from '../../components/SearchBar';
 import { getRestaurants } from '../../opentableHelper.js';
 import RestaurantCardGrid from '../../components/RestaurantCardGrid';
 import RestaurantCard from '../../components/RestaurantCard';
+import { listings } from '../../listings.js'
 
-console.log(SearchBar)
 class CustomerContainer extends Component {
   constructor(...args) {
     super(...args);
     this.state = {
       restaurants: [],
+      rlistings: listings,
       isLoaded: false,
       hasError: false,
     }
@@ -37,7 +38,6 @@ class CustomerContainer extends Component {
         this.getAllRestaurants(defaultLocation);
       }
     }
-
   }
 
   render() {
@@ -45,10 +45,9 @@ class CustomerContainer extends Component {
       <div className="customer-container">
         <RestaurantCardGrid>
           <SearchBar/>
-          <RestaurantCard/>
-          <RestaurantCard/>
-          <RestaurantCard/>
-          <RestaurantCard/>
+          {this.state.rlistings ? this.state.rlistings.map( function(list) {
+            return <RestaurantCard {...list}/>
+          }): null }
         </RestaurantCardGrid>
       </div>
     );

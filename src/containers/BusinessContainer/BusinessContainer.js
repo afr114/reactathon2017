@@ -22,14 +22,14 @@ class BusinessContainer extends Component {
         discounts: [
         {
           id: 1,
-          title: '20% off at 50% occ',
+          title: '20% off',
           dayOfWeek: [ 'M', 'TU', 'W' ],
           percentActivated: 50,
           percentDiscount: 30,
         },
         {
           id: 2,
-          title: '40% off at 20% occ',
+          title: '40% off',
           dayOfWeek: [ 'TU' ],
           percentActivated: 20,
           percentDiscount: 40,
@@ -75,6 +75,7 @@ class BusinessContainer extends Component {
         console.log(error)
         console.log(resp)
         console.log(body)
+        return;
         const business = this.state.business;
         business.discounts = business.discounts.map(d => {
           if (d.id === object.id) {
@@ -92,7 +93,27 @@ class BusinessContainer extends Component {
           business,
           focusLastRow: false
         });
-    })
+        // Hardcoded
+        const business = this.state.business;
+        business.discounts = business.discounts.map(d => {
+          if (d.id === object.id) {
+            d.id = `saved_${object.id.split('temp_')[0]}`;
+          }
+          return d;
+        })
+        this.setState({
+          business,
+          focusLastRow: false
+        });
+      });
+    }
+
+    return request.post({
+      method:'POST',
+      url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals',
+      body:JSON.stringify(data),
+      json:true
+    }, (err, resp) => { console.log('DONE', resp)})
   }
 
   handleCreateRow() {
@@ -101,8 +122,8 @@ class BusinessContainer extends Component {
       id: `temp_${business.discounts.length}`,
       title: '',
       dayOfWeek: [],
-      percentActivated: 10,
-      percentDiscount: 10,
+      percentActivated: 0,
+      percentDiscount: 0,
     })
     // @TODO Focus on first field
     this.setState({ business, focusLastRow: true });
