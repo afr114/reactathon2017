@@ -1,27 +1,14 @@
 import React, { Component } from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
-var products = [{
-      id: 1,
-      name: "Item name 1",
-      price: 100
-  },{
-      id: 2,
-      name: "Item name 2",
-      price: 100
-  },];
-
-function priceFormatter(cell, row){
-  return '<i class="glyphicon glyphicon-usd"></i> ' + cell;
-}
-
 class DiscountsTable extends Component {
   render() {
+    // @TODO Add tooltips to explain what the columns mean
     return (
-      <BootstrapTable data={products} striped={true} hover={true}>
-        <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
-        <TableHeaderColumn dataField="name" dataSort={true}>Product Name</TableHeaderColumn>
-        <TableHeaderColumn dataField="price" dataFormat={priceFormatter}>Product Price</TableHeaderColumn>
+      <BootstrapTable data={this.props.discounts} striped={true} hover={true}>
+        <TableHeaderColumn dataField="dealDayOfWeek" isKey={true} dataAlign="center">Day of the Week</TableHeaderColumn>
+        <TableHeaderColumn dataField="dealPercentActivated" dataAlign="center">Occupancy %</TableHeaderColumn>
+        <TableHeaderColumn dataField="dealPercentDiscount" dataAlign="center">Discount %</TableHeaderColumn>
       </BootstrapTable>
     );
   }
