@@ -4,7 +4,9 @@ export default class RestaurantCardGrid extends Component {
   render() {
     return (
       <div className="flex-card-grid">
-        {this.props.children}
+        <div className="content-wrapper">
+          {this.props.children}
+        </div>
       </div>
     )
   }
