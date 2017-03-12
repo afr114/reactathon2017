@@ -4,6 +4,7 @@ const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-depe
 const _ = require('lodash')
 const Promise = require("bluebird");
 const request = Promise.promisify(require("request"));
+const put = require('request').put
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const params = {
@@ -48,16 +49,15 @@ module.exports.generateAvailsChecks = (event, context, callback) => {
       const data = Object.assign({},parseTablesResponse(tables), { omnivoreLocationID: omniID });
       const putURL = `https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/seatAvails/${rid}`
 
-      request.put(putURL);
-      setTimeout(function(){
-         const response = {
+      
+      put({ url: putURL, method: 'PUT', body: JSON.stringify(data)}, function() {
+        const response = {
           putURL,
           seatData: data,
           statusCode: 200,
         };
         callback(null, response);
-      }, 1000)
-   
+      })
     });
   });
 };
