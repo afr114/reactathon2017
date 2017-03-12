@@ -45,7 +45,7 @@ class CustomerContainer extends Component {
         <RestaurantCardGrid>
           <SearchBar/>
           {this.state.rlistings ? this.state.rlistings.map( function(list) {
-            return <RestaurantCard key={list.rid} {...list}/>
+            return <RestaurantCard id={list.rid} key={list.rid} {...list}/>
           }): null }
         </RestaurantCardGrid>
       </div>

@@ -6,7 +6,7 @@ export default class Stars extends Component {
     var numStars = this.props.stars;
     return (
     <div>
-      {_.times(numStars, () =>  <span className='glyphicon glyphicon-star' />)}
+      {_.times(numStars, (i) =>  <span key={`${this.props.parentKey}-${i}`} className='glyphicon glyphicon-star' />)}
     </div>
     );
   }

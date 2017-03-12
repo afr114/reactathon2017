@@ -12,7 +12,7 @@ export default class RestaurantInfo extends Component {
         <p> Discount: {this.props.discount}</p>
         <p>{this.props.type}</p>
         <p>{this.props.location}</p>
-        <Stars stars={this.props.stars}/>
+        <Stars parentKey={this.props.key}stars={this.props.stars}/>
       </div>
     )
   }
