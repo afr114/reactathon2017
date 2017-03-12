@@ -11,7 +11,7 @@ class BusinessContainer extends Component {
     this.state = {
       showModal: false,
       formInput: {
-        title: '', 
+        title: '',
         dayOfWeek: '',
         percentActivated: '',
         percentDiscount: ''
@@ -23,109 +23,79 @@ class BusinessContainer extends Component {
           id: 1,
           title: '20% off at 50% occ',
           dayOfWeek: [ 'M', 'TU', 'W' ],
-          percentActivated: 0.5,
-          percentDiscount: 0.3,
+          percentActivated: 50,
+          percentDiscount: 30,
         },
         {
           id: 2,
           title: '40% off at 20% occ',
           dayOfWeek: [ 'TU' ],
-          percentActivated: 0.2,
-          percentDiscount: 0.4,
+          percentActivated: 20,
+          percentDiscount: 40,
         }]
       }
     };
     this.handleCreate = this.handleCreate.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-    //this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.handleCreateRow = this.handleCreateRow.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   toggleModal() {
     this.setState({ showModal: !this.state.toggleModal });
   }
 
-  onInputChange(event) {
-    const formField = event.target.id
-    let update = {}
-    update[formField] = event.target.value;
-    // overwrite the property that is being updated and merge the reset of the properties
-    const formInput = Object.assign({}, this.state.formInput, update);
-    this.setState({ formInput } );
-    
-    
+  handleCreate(object) {
+    const data = {
+      text: '',
+      rid: '12345',
+      title: object.title,
+      dayOfWeek: object.dayOfWeek,
+      percentActivated: object.percentActivated / 100,
+      percentDiscount: object.percentDiscount / 100,
+    }
+    console.log(data);
+    request.post({
+      method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(data), json:true, withCredentials: true},
+      function(resp) {
+        // @TODO update with id
+        console.log(resp);
+    });
   }
 
+  handleCreateRow() {
+    const business = this.state.business;
+    business.discounts.push({
+      id: `temp_${business.discounts.length}`,
+      dayOfWeek: [],
+      percentActivated: 0,
+      percentDiscount: 0,
+    })
+    // @TODO Focus on first field
+    this.setState({ business });
+  }
 
-  handleCreate() {
-    var formData = Object.assign({}, this.state.formInput, {text: '', rid: '12345'});
-    console.log(formData);
-    request.post({
-      method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(formData), json:true, withCredentials: true}, 
-      function(resp) {
-        console.log(resp);
-        this.toggleModal()
-    });
-//    console.log('Creating logic')
-//    const business = this.state.business;
-//    business.discounts.push({
-//      dayOfWeek: [],
-//      percentActivated: '',
-//      percentDiscount: '',
-//    })
-//    // @TODO Focus on first field
-//    this.setState({ business });
+  handleDelete(id) {
+    const business = this.state.business;
+    business.discounts = business.discounts.filter(d => d.id !== id);
+    this.setState({ business });
+  }
+
+  handleUpdate() {
+    console.log('UPDATING LOGIC');
   }
 
   render() {
     return (
       <div className="container-fluid">
         <h1>{this.state.business.name}</h1>
-        <Button bsStyle="success" onClick={this.toggleModal}><Glyphicon glyph="plus" /> New</Button>
+        <Button bsStyle="success" onClick={this.handleCreateRow} className="create-button"><Glyphicon glyph="plus" /> New Discount</Button>
         <DiscountsTable
           discounts={this.state.business.discounts}
+          update={this.handleUpdate}
+          create={this.handleCreate}
+          delete={this.handleDelete}
         />
-        <Modal show={this.state.showModal} onHide={this.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>Create a new deal</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form onSubmit={this.onFormSubmit} className="input-group" id="deal-form">
-              <input
-                placeholder="deal name"
-                className="form-control"
-                id='title'
-                value={this.state.formInput.title}
-                onChange={this.onInputChange} />
-              <input
-                placeholder='["SU", "M","TU","W","TH","F","SA"]'
-                className="form-control"
-                id='dayOfWeek'
-                value={this.state.formInput.dayOfWeek}
-                onChange={this.onInputChange} />
-              <input
-                placeholder="0.5"
-                className="form-control"
-                id='percentActivated'
-                value={this.state.formInput.percentActivated}
-                onChange={this.onInputChange} />
-              <input
-                placeholder="0.2"
-                className="form-control"
-                id='percentDiscount'
-                value={this.state.formInput.percentDiscount}
-                onChange={this.onInputChange} />
-              <span className="input-group-btn">
-                <Button onClick={this.handleCreate} className="btn btn-primary">
-                  <i className="fa fa-plus fa-lg white" aria-hidden="true"></i>
-                </Button>
-              </span>
-            </form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.toggleModal}>Close</Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     );
   }

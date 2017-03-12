@@ -1,3 +1,8 @@
 .react-bs-table {
   margin: 0 !important;
 }
+
+.create-button {
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+}

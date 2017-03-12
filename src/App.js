@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CustomerContainer from './containers/CustomerContainer';
 import BusinessContainer from './containers/BusinessContainer';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
