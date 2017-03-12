@@ -10,7 +10,7 @@
 // 		})
 // 		.catch(function (e) { console.log('oops'); });
 
-export function getLocationInfo(input) {
+export default function getLocationInfo(input) {
 	var input = input.replace(/\s+/g, '+');
 	var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + input + '&key=AIzaSyAY7_4Ja1beJEByz8uTmziyb7lmQld7B0s';
 	return fetch(url);
