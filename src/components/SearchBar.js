@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getRestauntInfo } from '../utils';
+// import { getRestauntInfo } from '../utils';
 
 export default class SearchBar extends Component {
 	constructor(props) {
