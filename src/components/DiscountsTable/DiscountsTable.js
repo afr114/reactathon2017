@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const ReactDom = require('react-dom');
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Button, Glyphicon } from 'react-bootstrap';
 import Multiselect from 'react-bootstrap-multiselect';
@@ -16,7 +17,7 @@ const dropdownDays = {
 
 const daysFormatter = (cell, row) => (<span>{ (cell.map(c => dropdownDays[c]) || []).join(', ') }</span>);
 const createDaysEditor = (onUpdate, props) => (<DaysEditor onUpdate={ onUpdate } {...props}/>);
-const days = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ];
+const createGenericEditor = (onUpdate, props) => (<GenericEditor onUpdate={ onUpdate } {...props}/>);
 
 class DaysEditor extends Component {
   constructor(props) {
@@ -65,22 +66,62 @@ class DaysEditor extends Component {
       );
     });
     return (
-      <div className="day-wrapper" ref='inputRef'>
-        { dayCheckBoxes }
-        <button
-          className='btn btn-info btn-xs textarea-save-btn'
-          onClick={ this.updateData }>
-          save
-        </button>
-      </div>
+      <span>
+        <div className="day-wrapper" ref='inputRef'>
+          { dayCheckBoxes }
+          <button
+            className='btn btn-info btn-xs textarea-save-btn'
+            onClick={ this.updateData }>
+            save
+          </button>
+        </div>
+      </span>
+    );
+  }
+}
+
+class GenericEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.updateData = this.updateData.bind(this);
+    this.state = {
+      value: props.defaultValue,
+    };
+    this.changeValue = this.changeValue.bind(this);
+  }
+
+  focus() {
+  }
+
+  updateData() {
+    this.props.onUpdate(this.state.value);
+  }
+
+  changeValue(ev) {
+    console.log(ev.target)
+    this.setState({ value: ev.target.value });
+  }
+
+  render() {
+    return (
+      <input type="text" className="form-control editor edit-text" value={this.state.value} onChange={this.changeValue}></input>
     );
   }
 }
 
 class DiscountsTable extends Component {
+  componentDidUpdate (prevProps, prevState){
+    if (this.props.focusLastRow) {
+      var dom = ReactDom.findDOMNode(this);
+      const tds = dom.querySelectorAll("td");
+      if (tds) {
+        tds[tds.length - 5].click();
+      }
+    }
+  }
   render() {
     const cellEditProp = {
-      mode: 'click'
+      mode: 'click',
     };
 
     const controlButtons = (cell, row) => {
@@ -96,7 +137,6 @@ class DiscountsTable extends Component {
       }
     };
 
-    // @TODO Add tooltips to explain what the columns mean
     return (
       <BootstrapTable data={this.props.discounts} striped={true} hover={true} cellEdit={cellEditProp}>
         <TableHeaderColumn dataField="title" dataAlign="center">Name</TableHeaderColumn>
@@ -107,6 +147,18 @@ class DiscountsTable extends Component {
         <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" editable={ false } dataFormat={ controlButtons }></TableHeaderColumn>
       </BootstrapTable>
     );
+
+    // @TODO Add tooltips to explain what the columns mean
+    // return (
+    //   <BootstrapTable data={this.props.discounts} striped={true} hover={true} cellEdit={cellEditProp}>
+    //     <TableHeaderColumn dataField="title" dataAlign="center" customEditor={{ getElement: createGenericEditor }}>Name</TableHeaderColumn>
+    //     <TableHeaderColumn dataField="dayOfWeek" dataAlign="center" dataFormat={ daysFormatter }
+    //         customEditor={ { getElement: createDaysEditor } } editColumnClassName="day-dropdown">Day of the Week</TableHeaderColumn>
+    //     <TableHeaderColumn dataField="percentActivated" dataAlign="center" customEditor={{ getElement: createGenericEditor }}>Occupancy %</TableHeaderColumn>
+    //     <TableHeaderColumn dataField="percentDiscount" dataAlign="center" customEditor={{ getElement: createGenericEditor }}>Discount %</TableHeaderColumn>
+    //     <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" editable={ false } dataFormat={ controlButtons }></TableHeaderColumn>
+    //   </BootstrapTable>
+    // );
   }
 }
 
