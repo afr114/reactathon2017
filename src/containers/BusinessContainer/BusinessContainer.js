@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Glyphicon, Modal } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
 import './BusinessContainer.css';
 import DiscountsTable from '../../components/DiscountsTable';
 import request from 'browser-request';
+var $ = require('jquery')
 
 
 class BusinessContainer extends Component {
@@ -40,10 +41,22 @@ class BusinessContainer extends Component {
     this.handleCreateRow = this.handleCreateRow.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.getDeals = this.getDeals.bind(this);
   }
 
-  toggleModal() {
-    this.setState({ showModal: !this.state.toggleModal });
+
+
+  getDeals() {
+    $.ajax({
+        url: 'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals',
+        type: 'json',
+        crossDomain: true,
+        contentType: 'application/json',
+        success: function(data) {
+            console.log('data')
+        },
+        method: 'get',
+    });
   }
 
   handleCreate(object) {
@@ -55,18 +68,45 @@ class BusinessContainer extends Component {
       percentActivated: object.percentActivated / 100,
       percentDiscount: object.percentDiscount / 100,
     }
-
-    const business = this.state.business;
-    business.discounts = business.discounts.map(d => {
-      if (d.id === object.id) {
-        d.id = `saved_${object.id.split('temp_')[0]}`;
-      }
-      return d;
-    })
-    this.setState({
-      business,
-      focusLastRow: false
-    });
+    return request.post({
+      method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(data), json:true },
+      function(error, resp, body) {
+        console.log(error, resp, body)
+        console.log(error)
+        console.log(resp)
+        console.log(body)
+        return;
+        const business = this.state.business;
+        business.discounts = business.discounts.map(d => {
+          if (d.id === object.id) {
+            return {
+              id: resp.id,
+              title: resp.title,
+              dayOfWeek: resp.dayOfWeek,
+              percentActivated: resp.percentActivated * 100,
+              percentDiscount: resp.percentDiscount * 100,
+            }
+          }
+          return d;
+        })
+        this.setState({
+          business,
+          focusLastRow: false
+        });
+        // Hardcoded
+        const business = this.state.business;
+        business.discounts = business.discounts.map(d => {
+          if (d.id === object.id) {
+            d.id = `saved_${object.id.split('temp_')[0]}`;
+          }
+          return d;
+        })
+        this.setState({
+          business,
+          focusLastRow: false
+        });
+      });
+    }
 
     return request.post({
       method:'POST',
@@ -102,6 +142,7 @@ class BusinessContainer extends Component {
   }
 
   render() {
+    {this.getDeals()}
     return (
       <div className="container-fluid">
         <h1>{this.state.business.name}</h1>
