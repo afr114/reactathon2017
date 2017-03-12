@@ -77,35 +77,35 @@ class BusinessContainer extends Component {
         console.log(body)
 
         return;
-        const business = this.state.business;
-        business.discounts = business.discounts.map(d => {
-          if (d.id === object.id) {
-            return {
-              id: resp.id,
-              title: resp.title,
-              dayOfWeek: resp.dayOfWeek,
-              percentActivated: resp.percentActivated * 100,
-              percentDiscount: resp.percentDiscount * 100,
-            }
-          }
-          return d;
-        })
-        this.setState({
-          business,
-          focusLastRow: false
-        });
-        // Hardcoded
-        const business = this.state.business;
-        business.discounts = business.discounts.map(d => {
-          if (d.id === object.id) {
-            d.id = `saved_${object.id.split('temp_')[0]}`;
-          }
-          return d;
-        })
-        this.setState({
-          business,
-          focusLastRow: false
-        });
+        // const business = this.state.business;
+        // business.discounts = business.discounts.map(d => {
+        //   if (d.id === object.id) {
+        //     return {
+        //       id: resp.id,
+        //       title: resp.title,
+        //       dayOfWeek: resp.dayOfWeek,
+        //       percentActivated: resp.percentActivated * 100,
+        //       percentDiscount: resp.percentDiscount * 100,
+        //     }
+        //   }
+        //   return d;
+        // })
+        // this.setState({
+        //   business,
+        //   focusLastRow: false
+        // });
+        // // Hardcoded
+        // const business = this.state.business;
+        // business.discounts = business.discounts.map(d => {
+        //   if (d.id === object.id) {
+        //     d.id = `saved_${object.id.split('temp_')[0]}`;
+        //   }
+        //   return d;
+        // })
+        // this.setState({
+        //   business,
+        //   focusLastRow: false
+        // });
       }
     )
   }
