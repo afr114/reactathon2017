@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Glyphicon, Modal } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
 import './BusinessContainer.css';
 import DiscountsTable from '../../components/DiscountsTable';
 import request from 'browser-request';
+var $ = require('jquery')
 
 
 class BusinessContainer extends Component {
@@ -40,10 +41,22 @@ class BusinessContainer extends Component {
     this.handleCreateRow = this.handleCreateRow.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.getDeals = this.getDeals.bind(this);
   }
 
-  toggleModal() {
-    this.setState({ showModal: !this.state.toggleModal });
+
+
+  getDeals() {
+    $.ajax({
+        url: 'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals',
+        type: 'json',
+        crossDomain: true,
+        contentType: 'application/json',
+        success: function(data) {
+            console.log('data')
+        },
+        method: 'get',
+    });
   }
 
   handleCreate(object) {
@@ -59,6 +72,9 @@ class BusinessContainer extends Component {
       method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(data), json:true },
       function(error, resp, body) {
         console.log(error, resp, body)
+        console.log(error)
+        console.log(resp)
+        console.log(body)
         const business = this.state.business;
         business.discounts = business.discounts.map(d => {
           if (d.id === object.id) {
@@ -105,6 +121,7 @@ class BusinessContainer extends Component {
   }
 
   render() {
+    {this.getDeals()}
     return (
       <div className="container-fluid">
         <h1>{this.state.business.name}</h1>
