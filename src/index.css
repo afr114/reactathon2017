@@ -14,13 +14,13 @@ body {
 
 .flex-search-container {
   display: -webkit-flex;
-     display: flex;
-     -webkit-flex-direction: row;
-     flex-direction: row;
-     -webkit-align-items: center;
-     align-items: center;
-     -webkit-justify-content: center;
-     justify-content: center;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 #search-form {
@@ -28,4 +28,29 @@ body {
   border: 1px solid #dce0e0 !important;
   box-shadow: 0 1px 3px 0 #dce0e0 !important;
   border-radius: 4px !important;
+}
+
+.flex-card-grid {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.restaurant-card {
+  margin: 2%;
+  border: 1px solid #dce0e0 !important;
+  box-shadow: 0 1px 3px 0 #dce0e0 !important;
+  border-radius: 4px !important;
+  width: 60%;
+  height: 250px;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
 }
