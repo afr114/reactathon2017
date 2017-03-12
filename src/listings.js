@@ -8,7 +8,8 @@ export const listings = [
     restaurantName: 'Bouche',
     location: 'Downtown / Union Square',
     type: 'French',
-    stars: 4
+    stars: 4,
+    reservationUrl: 'https://www.opentable.com/r/bouche-san-francisco'
   },
   {
     rid: 3592,
@@ -19,7 +20,8 @@ export const listings = [
     restaurantName: 'Cafe Claude',
     location: 'Downtown / Union Square',
     type: 'French',
-    stars: 5
+    stars: 5,
+    reservationUrl: 'https://www.opentable.com/r/cafe-claude-san-francisco'
   },
   { rid: 2989,
     img: {
@@ -30,6 +32,7 @@ export const listings = [
     location: 'Downtown / Union Square',
     type: 'Contemporary American',
     stars: 4,
+    reservationUrl: 'https://www.opentable.com/mkt-restaurant-and-bar'
   },
   { rid: 24886,
     img: {
@@ -39,7 +42,8 @@ export const listings = [
     restaurantName: 'Amber India',
     location: 'Downtown / Union Square',
     type: 'India',
-    stars: 4
+    stars: 4,
+    reservationUrl: 'https://www.opentable.com/r/amber-india-san-francisco'
   },
   { rid: 141,
     img: {
@@ -49,7 +53,8 @@ export const listings = [
     restaurantName: 'ANZU',
     location: 'Downtown / Union Square',
     type: 'Californian',
-    stars: 4
+    stars: 4,
+    reservationUrl: 'https://www.opentable.com/r/anzu-san-francisco'
   },
   { rid: 3598,
     img: {
@@ -59,6 +64,7 @@ export const listings = [
     restaurantName: 'B44',
     location: 'Downtown / Union Square',
     type: 'Spanish',
-    stars: 5
+    stars: 5,
+    reservationUrl: 'https://www.opentable.com/r/b44-san-francisco'
   },
 ]
