@@ -1,0 +1,6 @@
+{
+  "name": "DiscountsTable",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DiscountsTable.js"
+}
