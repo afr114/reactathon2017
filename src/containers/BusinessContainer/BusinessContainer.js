@@ -48,18 +48,17 @@ class BusinessContainer extends Component {
 
   handleCreate(object) {
     const data = {
-      text: '',
+      text: 'Text Description',
       rid: '12345',
       title: object.title,
       dayOfWeek: object.dayOfWeek,
       percentActivated: object.percentActivated / 100,
       percentDiscount: object.percentDiscount / 100,
     }
-    console.log(data);
-    request.post({
+    return request.post({
       method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(data), json:true },
-      function(resp) {
-        console.log('DONE', resp, this.state)
+      function(error, resp, body) {
+        console.log(error, resp, body)
         const business = this.state.business;
         business.discounts = business.discounts.map(d => {
           if (d.id === object.id) {
@@ -77,16 +76,17 @@ class BusinessContainer extends Component {
           business,
           focusLastRow: false
         });
-    });
+    })
   }
 
   handleCreateRow() {
     const business = this.state.business;
     business.discounts.push({
       id: `temp_${business.discounts.length}`,
+      title: '',
       dayOfWeek: [],
-      percentActivated: 0,
-      percentDiscount: 0,
+      percentActivated: 10,
+      percentDiscount: 10,
     })
     // @TODO Focus on first field
     this.setState({ business, focusLastRow: true });

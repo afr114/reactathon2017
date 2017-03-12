@@ -17,6 +17,7 @@ const dropdownDays = {
 
 const daysFormatter = (cell, row) => (<span>{ (cell.map(c => dropdownDays[c]) || []).join(', ') }</span>);
 const createDaysEditor = (onUpdate, props) => (<DaysEditor onUpdate={ onUpdate } {...props}/>);
+const createGenericEditor = (onUpdate, props) => (<GenericEditor onUpdate={ onUpdate } {...props}/>);
 
 class DaysEditor extends Component {
   constructor(props) {
@@ -79,6 +80,35 @@ class DaysEditor extends Component {
   }
 }
 
+class GenericEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.updateData = this.updateData.bind(this);
+    this.state = {
+      value: props.defaultValue,
+    };
+    this.changeValue = this.changeValue.bind(this);
+  }
+
+  focus() {
+  }
+
+  updateData() {
+    this.props.onUpdate(this.state.value);
+  }
+
+  changeValue(ev) {
+    console.log(ev.target)
+    this.setState({ value: ev.target.value });
+  }
+
+  render() {
+    return (
+      <input type="text" className="form-control editor edit-text" value={this.state.value} onChange={this.changeValue}></input>
+    );
+  }
+}
+
 class DiscountsTable extends Component {
   componentDidUpdate (prevProps, prevState){
     if (this.props.focusLastRow) {
@@ -91,7 +121,7 @@ class DiscountsTable extends Component {
   }
   render() {
     const cellEditProp = {
-      mode: 'click'
+      mode: 'click',
     };
 
     const controlButtons = (cell, row) => {
@@ -107,7 +137,6 @@ class DiscountsTable extends Component {
       }
     };
 
-    // @TODO Add tooltips to explain what the columns mean
     return (
       <BootstrapTable data={this.props.discounts} striped={true} hover={true} cellEdit={cellEditProp}>
         <TableHeaderColumn dataField="title" dataAlign="center">Name</TableHeaderColumn>
@@ -118,6 +147,18 @@ class DiscountsTable extends Component {
         <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" editable={ false } dataFormat={ controlButtons }></TableHeaderColumn>
       </BootstrapTable>
     );
+
+    // @TODO Add tooltips to explain what the columns mean
+    // return (
+    //   <BootstrapTable data={this.props.discounts} striped={true} hover={true} cellEdit={cellEditProp}>
+    //     <TableHeaderColumn dataField="title" dataAlign="center" customEditor={{ getElement: createGenericEditor }}>Name</TableHeaderColumn>
+    //     <TableHeaderColumn dataField="dayOfWeek" dataAlign="center" dataFormat={ daysFormatter }
+    //         customEditor={ { getElement: createDaysEditor } } editColumnClassName="day-dropdown">Day of the Week</TableHeaderColumn>
+    //     <TableHeaderColumn dataField="percentActivated" dataAlign="center" customEditor={{ getElement: createGenericEditor }}>Occupancy %</TableHeaderColumn>
+    //     <TableHeaderColumn dataField="percentDiscount" dataAlign="center" customEditor={{ getElement: createGenericEditor }}>Discount %</TableHeaderColumn>
+    //     <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" editable={ false } dataFormat={ controlButtons }></TableHeaderColumn>
+    //   </BootstrapTable>
+    // );
   }
 }
 
