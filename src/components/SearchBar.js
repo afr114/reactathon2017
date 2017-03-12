@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { getRestauntInfo } from '/axios_request.js';
+import { getRestauntInfo } from '../utils';
 
-export class SearchBar extends Component {
+export default class SearchBar extends Component {
 	constructor(props) {
 		super(props);
 
@@ -17,22 +17,26 @@ export class SearchBar extends Component {
 
 	onFormSubmit(event) {
 		event.preventDefault();
-		this.props.getRestauntInfo(this.state.term);
+		// this.props.getRestauntInfo(this.state.term);
 		this.setState({ term: '' });
 	}
 
 	render() {
 		return (
-			<form onSubmit={this.onFormSubmit} className="input-group">
-				<input 
+		<div className="flex-search-container">
+			<form onSubmit={this.onFormSubmit} className="input-group" id="search-form">
+				<input
 					placeholder="Search Restaurants"
 					className="form-control"
 					value={this.state.term}
 					onChange={this.onInputChange} />
 				<span className="input-group-btn">
-					<button type="submit" className="btn btn-secondary">Submit</button>
+					<button type="submit" className="btn btn-secondary red">
+						<i className="fa fa-search fa-lg white" aria-hidden="true"></i>
+					</button>
 				</span>
 			</form>
+		</div>
 		);
 	}
 }
