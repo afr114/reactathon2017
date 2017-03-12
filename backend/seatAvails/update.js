@@ -26,8 +26,8 @@ module.exports.update = (event, context, callback) => {
 
     },
     ExpressionAttributeValues: {
-      ':avails': data.text,
-      ':seats': data.seatAvailArchived, 
+      ':avails': data.avails,
+      ':seats': data.seats, 
       ':updatedAt': timestamp
     },
     UpdateExpression: 'SET #seats = :seats, #avails = :avails, updatedAt = :updatedAt',
