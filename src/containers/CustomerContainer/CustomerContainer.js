@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './CustomerContainer.css';
 import SearchBar from '../../components/SearchBar';
 import { getRestaurants } from '../../opentableHelper.js';
+import RestaurantCardGrid from '../../components/RestaurantCardGrid';
+import RestaurantCard from '../../components/RestaurantCard';
+
 
 class CustomerContainer extends Component {
   constructor(...args) {
@@ -41,6 +44,12 @@ class CustomerContainer extends Component {
     return (
       <div className="customer-container">
         <SearchBar/>
+        <RestaurantCardGrid>
+          <RestaurantCard/>
+          <RestaurantCard/>
+          <RestaurantCard/>
+          <RestaurantCard/>
+        </RestaurantCardGrid>
       </div>
     );
   }
