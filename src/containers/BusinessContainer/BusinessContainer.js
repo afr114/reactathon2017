@@ -68,14 +68,21 @@ class BusinessContainer extends Component {
       percentActivated: object.percentActivated / 100,
       percentDiscount: object.percentDiscount / 100,
     }
+
+    const business = this.state.business;
+    business.discounts = business.discounts.map(d => {
+      if (d.id === object.id) {
+        d.id = `saved_${object.id.split('temp_')[0]}`;
+      }
+      return d;
+    })
+    this.setState({
+      business,
+      focusLastRow: false
+    });
     return request.post({
       method:'POST', url:'https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals', body:JSON.stringify(data), json:true },
       function(error, resp, body) {
-        console.log(error, resp, body)
-        console.log(error)
-        console.log(resp)
-        console.log(body)
-
         return;
         // const business = this.state.business;
         // business.discounts = business.discounts.map(d => {
@@ -95,17 +102,7 @@ class BusinessContainer extends Component {
         //   focusLastRow: false
         // });
         // // Hardcoded
-        // const business = this.state.business;
-        // business.discounts = business.discounts.map(d => {
-        //   if (d.id === object.id) {
-        //     d.id = `saved_${object.id.split('temp_')[0]}`;
-        //   }
-        //   return d;
-        // })
-        // this.setState({
-        //   business,
-        //   focusLastRow: false
-        // });
+
       }
     )
   }
