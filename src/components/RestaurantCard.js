@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RestaurantImage from './RestaurantImage';
 import RestaurantInfo from './RestaurantInfo';
+import OpenTableWidget from './OpenTableWidget';
 
 export default class RestaurantCard extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export default class RestaurantCard extends Component {
         <div className="flex-row">
         <RestaurantImage {...this.props.img}/>
         <RestaurantInfo {...this.props}/>
+        <OpenTableWidget/>
         </div>
       </div>
     )
