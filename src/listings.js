@@ -8,6 +8,7 @@ export const listings = [
     restaurantName: 'Bouche',
     location: 'Downtown / Union Square',
     type: 'French',
+    stars: 4
   },
   {
     rid: 3592,
@@ -17,7 +18,8 @@ export const listings = [
     },
     restaurantName: 'Cafe Claude',
     location: 'Downtown / Union Square',
-    type: 'French'
+    type: 'French',
+    stars: 5
   },
   { rid: 2989,
     img: {
@@ -26,7 +28,8 @@ export const listings = [
     },
     restaurantName: 'MKT Restaurant and Bar',
     location: 'Downtown / Union Square',
-    type: 'Contemporary American'
+    type: 'Contemporary American',
+    stars: 4,
   },
   { rid: 24886,
     img: {
@@ -35,7 +38,8 @@ export const listings = [
     },
     restaurantName: 'Amber India',
     location: 'Downtown / Union Square',
-    type: 'India'
+    type: 'India',
+    stars: 4
   },
   { rid: 141,
     img: {
@@ -44,7 +48,8 @@ export const listings = [
     },
     restaurantName: 'ANZU',
     location: 'Downtown / Union Square',
-    type: 'Californian'
+    type: 'Californian',
+    stars: 4
   },
   { rid: 3598,
     img: {
@@ -53,6 +58,7 @@ export const listings = [
     },
     restaurantName: 'B44',
     location: 'Downtown / Union Square',
-    type: 'Spanish'
+    type: 'Spanish',
+    stars: 5
   },
 ]
