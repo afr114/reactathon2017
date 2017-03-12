@@ -9,7 +9,8 @@ export const listings = [
     location: 'Downtown / Union Square',
     type: 'French',
     stars: 4,
-    reservationUrl: 'https://www.opentable.com/r/bouche-san-francisco'
+    reservationUrl: 'https://www.opentable.com/r/bouche-san-francisco',
+    discount: '20%'
   },
   {
     rid: 3592,
@@ -21,7 +22,8 @@ export const listings = [
     location: 'Downtown / Union Square',
     type: 'French',
     stars: 5,
-    reservationUrl: 'https://www.opentable.com/r/cafe-claude-san-francisco'
+    reservationUrl: 'https://www.opentable.com/r/cafe-claude-san-francisco',
+    discount: '30%'
   },
   { rid: 2989,
     img: {
@@ -32,7 +34,8 @@ export const listings = [
     location: 'Downtown / Union Square',
     type: 'Contemporary American',
     stars: 4,
-    reservationUrl: 'https://www.opentable.com/mkt-restaurant-and-bar'
+    reservationUrl: 'https://www.opentable.com/mkt-restaurant-and-bar',
+    discount: '10%'
   },
   { rid: 24886,
     img: {
@@ -43,7 +46,8 @@ export const listings = [
     location: 'Downtown / Union Square',
     type: 'India',
     stars: 4,
-    reservationUrl: 'https://www.opentable.com/r/amber-india-san-francisco'
+    reservationUrl: 'https://www.opentable.com/r/amber-india-san-francisco',
+    discount: '40%'
   },
   { rid: 141,
     img: {
@@ -54,7 +58,8 @@ export const listings = [
     location: 'Downtown / Union Square',
     type: 'Californian',
     stars: 4,
-    reservationUrl: 'https://www.opentable.com/r/anzu-san-francisco'
+    reservationUrl: 'https://www.opentable.com/r/anzu-san-francisco',
+    discount: '15%'
   },
   { rid: 3598,
     img: {
@@ -65,6 +70,7 @@ export const listings = [
     location: 'Downtown / Union Square',
     type: 'Spanish',
     stars: 5,
-    reservationUrl: 'https://www.opentable.com/r/b44-san-francisco'
+    reservationUrl: 'https://www.opentable.com/r/b44-san-francisco',
+    discount: '5%'
   },
 ]
