@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RestaurantImage from './RestaurantImage';
 import RestaurantInfo from './RestaurantInfo';
 import OpenTableWidget from './OpenTableWidget';
+import Stars from './Stars';
 
 export default class RestaurantCard extends Component {
   constructor(props) {
@@ -15,12 +16,20 @@ export default class RestaurantCard extends Component {
 
   render() {
     return (
-      <div className="restaurant-card" onClick={this.handleClick.bind(this, this.props.reservationUrl)}>
-        <div className="flex-row">
-        <RestaurantImage {...this.props.img}/>
-        <RestaurantInfo {...this.props}/>
-        <OpenTableWidget/>
-        </div>
+      <div className="restaurant-card flex-wrapper">
+          <div className="image-container">
+            <img src={this.props.img.imgUrl} alt={this.props.img.alt} className="image-size"/>
+          </div>
+          <div className="info-container">
+            <h1>{this.props.restaurantName}</h1>
+            <p> Discount: {this.props.discount}</p>
+            <p>{this.props.type}</p>
+            <p>{this.props.location}</p>
+            <Stars parentKey={this.props.key}stars={this.props.stars}/>
+          </div>
+          <div className="opentable-widget">
+            <OpenTableWidget rid={this.props.rid}/>
+          </div>
       </div>
     )
   }
