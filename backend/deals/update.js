@@ -8,12 +8,8 @@ module.exports.update = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
 
-  // validation
-  if (typeof data.text !== 'string' || typeof data.dealArchived !== 'boolean') {
-    console.error('Validation Failed');
-    callback(new Error('Couldn\'t update the deal item.'));
-    return;
-  }
+  console.log(data)
+
 
   const params = {
     TableName: process.env.DEALS_DYNAMODB_TABLE,

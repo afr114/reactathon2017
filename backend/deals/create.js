@@ -1,5 +1,5 @@
 'use strict';
-
+console.log('loaded')
 const uuid = require('uuid');
 const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
 
@@ -8,11 +8,6 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 module.exports.create = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
-  if (typeof data.text !== 'string') {
-    console.error('Validation Failed');
-    callback(new Error('Couldn\'t create the deal item.'));
-    return;
-  }
 
   const params = {
     TableName: process.env.DEALS_DYNAMODB_TABLE,

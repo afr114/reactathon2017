@@ -28,21 +28,21 @@ module.exports.list = (event, context, callback) => {
     dynamoDb.scan(availsParams, (error, result) => {
       const availsByRid = _.keyBy(result.Items, (avail) => avail.id);
       const today = daysOfWeek[new Date().getDay()];
-      console.log(allDeals)
+      console.log(availsByRid)
 
       // figure out which deals are elibgile
       // TODO: test filters
       const currentDeals = allDeals
         // check that the deal isn't archived
-        //.filter((deal) => !deal.archived)
+        .filter((deal) => !deal.archived)
         // check that today is in the deal
-        //.filter((deal) => deal.dealDayOfWeek.indexOf(today) > -1)
+        .filter((deal) => deal.dealDayOfWeek.indexOf(today) > -1)
         // check that the deal has crossed percentAvail threshold
-//        .filter(function(deal){
-//          // get percent avails by taking avails/seats - 80 / 100 = 0.2
-//          var percentAvail = availsByRid[deal.id].avails/availsByRid[deal.id].seats;
-//          return availsByRid[deal.id].dealPercentActivated >= percentAvail;
-//        })
+        .filter(function(deal){
+          // get percent avails by taking avails/seats - 80 / 100 = 0.2
+          var percentAvail = availsByRid[deal.dealRestaurantID].avails/availsByRid[deal.dealRestaurantID].seats;
+          return availsByRid[deal.dealRestaurantID].dealPercentActivated >= percentAvail;
+        })
         console.log(currentDeals)
 
 

@@ -1,8 +1,6 @@
 
 ## Customer Facing Routes:
 
-NOTE: not working yet
-
 __https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/currentDeals__
   __GET:__
     Returns an array of non-archived deals where current capacity is less than deal threshold like:
@@ -27,8 +25,6 @@ __https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/currentDeals__
     }```
 
 ## Business Facing Routes 
-
-NOTE: These should all be working
 
 __https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals__
   __GET:__
@@ -68,11 +64,7 @@ __https://dyftmauijc.execute-api.us-east-1.amazonaws.com/dev/deals/{id}}__
   __PUT:__
     Update an existing deal, expects a JSON body like:
     ```{
-      "title": "a title",
       "text": "description of the deal",
-      "percentActivated": "0.2",
-      "percentDiscount": "0.25",
-      "dayOfWeek": ["M","TU","W","TH","F","SA","SU"],
-      "rid": "openTableUUID"
+      "dealArchived": "false"
     }```
 
