@@ -5,6 +5,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "lodash": "^4.17.4",
+    "request": "^2.81.0",
     "uuid": "^2.0.3"
   }
 }

@@ -22,17 +22,20 @@ module.exports.update = (event, context, callback) => {
     },
     ExpressionAttributeNames: {
       '#avails': 'avails',
-      '#seats': 'seats'
-
+      '#seats': 'seats', 
+      '#omnivoreLocationID': 'omnivoreLocationID',
     },
     ExpressionAttributeValues: {
       ':avails': data.avails,
       ':seats': data.seats, 
-      ':updatedAt': timestamp
+      ':updatedAt': timestamp, 
+      ':omnivoreLocationID': data.omnivoreLocationID,
     },
-    UpdateExpression: 'SET #seats = :seats, #avails = :avails, updatedAt = :updatedAt',
+    UpdateExpression: 'SET #seats = :seats, #avails = :avails, updatedAt = :updatedAt, #omnivoreLocationID = :omnivoreLocationID',
     ReturnValues: 'ALL_NEW',
   };
+
+  console.log(params)
 
   // update the seatAvail in the database
   dynamoDb.update(params, (error, result) => {

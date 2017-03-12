@@ -101,6 +101,12 @@ functions:
           method: put
           cors: true
 
+  availsCron:
+    handler: availCron/cron.generateAvailsChecks
+    events:
+      - schedule: rate(60 minutes)
+      - schedule: cron(0 12 * * ? *)
+
 resources:
   Resources:
     DealsDynamoDbTable:
