@@ -1,7 +1,7 @@
 'use strict';
 
 const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
-const _ = require('lodash')
+const _ = require('lodash');
 const Promise = require("bluebird");
 const request = Promise.promisify(require("request"));
 const put = require('request').put

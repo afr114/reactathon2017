@@ -5,7 +5,7 @@ const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-depe
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports.generateAvailsChecks = (event, context, callback) => {
+module.exports.create = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
 
@@ -32,7 +32,8 @@ module.exports.generateAvailsChecks = (event, context, callback) => {
 
     // create a response
     const response = {
-      statusCode: 200
+      statusCode: 200,
+      body: JSON.stringify(result.Item),
     };
     callback(null, response);
   });

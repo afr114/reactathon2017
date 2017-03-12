@@ -107,6 +107,14 @@ functions:
       - schedule: rate(60 minutes)
       - schedule: cron(0 12 * * ? *)
 
+  currentDeals:
+    handler: currentDeals/list.list
+    events:
+      - http:
+          path: currentDeals
+          method: get
+          cors: true
+
 resources:
   Resources:
     DealsDynamoDbTable:
