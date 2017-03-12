@@ -73,9 +73,18 @@ class DiscountsTable extends Component {
       mode: 'click'
     };
 
-    const updateButton = (cell, row) => (
-      <Button bsStyle="warning" onClick={() => this.props.update(cell)}><Glyphicon glyph="edit" /></Button>
-    );
+    const controlButtons = (cell, row) => {
+      if (typeof cell === 'string' && cell.indexOf('temp_') > -1) {
+        return (
+          <div>
+            <Button key={`edit_${cell}`} bsStyle="success" onClick={() => this.props.create(row)}><Glyphicon glyph="ok" /></Button>
+            <Button key={`delete_${cell}`} bsStyle="danger" onClick={() => this.props.delete(cell)}><Glyphicon glyph="trash" /></Button>
+          </div>
+        );
+      } else {
+        return <Button bsStyle="warning" onClick={() => this.props.update(cell)}><Glyphicon glyph="edit" /></Button>;
+      }
+    };
 
     // @TODO Add tooltips to explain what the columns mean
     return (
@@ -84,7 +93,7 @@ class DiscountsTable extends Component {
             customEditor={ { getElement: createDaysEditor } } editColumnClassName="day-dropdown">Day of the Week</TableHeaderColumn>
         <TableHeaderColumn dataField="percentActivated" dataAlign="center">Occupancy %</TableHeaderColumn>
         <TableHeaderColumn dataField="percentDiscount" dataAlign="center">Discount %</TableHeaderColumn>
-        <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" editable={ false } dataFormat={ updateButton }></TableHeaderColumn>
+        <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" editable={ false } dataFormat={ controlButtons }></TableHeaderColumn>
       </BootstrapTable>
     );
   }

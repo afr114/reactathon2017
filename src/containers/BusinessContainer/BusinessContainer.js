@@ -36,6 +36,9 @@ class BusinessContainer extends Component {
       }
     };
     this.handleCreate = this.handleCreate.bind(this);
+    this.handleCreateRow = this.handleCreateRow.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     //this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -66,15 +69,29 @@ class BusinessContainer extends Component {
         console.log(resp);
         this.toggleModal()
     });
-//    console.log('Creating logic')
-//    const business = this.state.business;
-//    business.discounts.push({
-//      dayOfWeek: [],
-//      percentActivated: '',
-//      percentDiscount: '',
-//    })
-//    // @TODO Focus on first field
-//    this.setState({ business });
+    this.handleUpdate = this.handleUpdate.bind(this);
+  }
+
+  handleCreateRow() {
+    const business = this.state.business;
+    business.discounts.push({
+      id: `temp_${business.discounts.length}`,
+      dayOfWeek: [],
+      percentActivated: 0,
+      percentDiscount: 0,
+    })
+    // @TODO Focus on first field
+    this.setState({ business });
+  }
+
+  handleCreate(object) {
+    console.log('CREATING')
+  }
+
+  handleDelete(id) {
+    const business = this.state.business;
+    business.discounts = business.discounts.filter(d => d.id !== id);
+    this.setState({ business });
   }
 
   handleUpdate() {
@@ -86,9 +103,12 @@ class BusinessContainer extends Component {
       <div className="container-fluid">
         <h1>{this.state.business.name}</h1>
         <Button bsStyle="success" onClick={this.toggleModal} className="create-button"><Glyphicon glyph="plus" /> New Discount</Button>
+        <Button bsStyle="success" onClick={this.handleCreateRow} className="create-button"><Glyphicon glyph="plus" /> New Discount</Button>
         <DiscountsTable
           discounts={this.state.business.discounts}
           update={this.handleUpdate}
+          create={this.handleCreate}
+          delete={this.handleDelete}
         />
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
