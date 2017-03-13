@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getLocationInfo } from './google_api.js';
 
 export default class SearchBar extends React.Component {
 	constructor(props) {
@@ -19,16 +18,15 @@ export default class SearchBar extends React.Component {
 	onFormSubmit(event) {
 		event.preventDefault();
 		var location = this.state.searchTerm;
-		console.log(location);
 		var location = location.replace(/\s+/g, '+');
 		var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key=AIzaSyAY7_4Ja1beJEByz8uTmziyb7lmQld7B0s';
 			fetch(url)
 			.then(function (r) { return r.json(); })
 			.then(function (data) {
-				return {
+				console.log ({
 					lat: data.results[0].geometry.location.lat,
 					lng: data.results[0].geometry.location.lng
-				};
+				});
 		})
 		.catch(function (e) { console.log('oops'); });
 		
