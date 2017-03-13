@@ -17,19 +17,19 @@ export default class RestaurantCard extends Component {
   render() {
     return (
       <div className="restaurant-card flex-wrapper">
-          <div className="image-container">
-            <img src={this.props.img.imgUrl} alt={this.props.img.alt} className="image-size"/>
-          </div>
-          <div className="info-container">
-            <h1 className="no-margin-top">{this.props.restaurantName}</h1>
-            <p> Discount: {this.props.discount}</p>
-            <p>{this.props.type}</p>
-            <p>{this.props.location}</p>
-            <Stars parentKey={this.props.key}stars={this.props.stars}/>
-          </div>
-          <div className="opentable-widget">
-            <OpenTableWidget rid={this.props.rid}/>
-          </div>
+        <div className="image-container">
+          <img src={this.props.img.imgUrl} alt={this.props.img.alt} className="image-size"/>
+        </div>
+        <div className="info-container">
+          <h1 className="no-margin-top">{this.props.restaurantName}</h1>
+          <p> Discount: {this.props.discount}</p>
+          <p>{this.props.type}</p>
+          <p>{this.props.location}</p>
+          <Stars parentKey={this.props.key}stars={this.props.stars}/>
+        </div>
+        <div className="opentable-widget">
+          <OpenTableWidget rid={this.props.rid}/>
+        </div>
       </div>
     )
   }

@@ -20,7 +20,7 @@ class BusinessContainer extends Component {
         percentDiscount: ''
       },
       business: {
-        name: 'Business Name',
+        name: 'Bouche',
         discounts: [
         {
           id: 1,
