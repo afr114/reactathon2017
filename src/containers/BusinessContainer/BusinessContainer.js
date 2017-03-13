@@ -3,7 +3,9 @@ import { Button, Glyphicon } from 'react-bootstrap';
 import './BusinessContainer.css';
 import DiscountsTable from '../../components/DiscountsTable';
 import request from 'browser-request';
+var BarChart = require("react-chartjs").Bar;
 var $ = require('jquery')
+require('chart.js')
 
 
 class BusinessContainer extends Component {
@@ -36,6 +38,30 @@ class BusinessContainer extends Component {
         }]
       },
       focusLastRow: false,
+      chartData: {
+        labels: ["M", "T", "W", "R", "F", "S", "S"],
+        datasets: [{
+           fillColor: ["#EDE9A3","#D7C37A","#1B8057","#55A44E","#625772","#EDE9A3" ],
+            strokeColor: "rgba(220,220,220,0.8)", 
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+          label: 'Discounted',
+          data: [40, 30, 70, 40, 10, 10, 30]
+        }, {
+          label: 'Non-Discounted',
+          data: [40, 65, 30, 50, 80, 85, 60]
+        }]
+      },
+      chartOptions:  {
+          scales:{
+            xAxes: [{
+                stacked: true
+            }],
+            yAxes: [{
+            stacked: true
+            }]
+        }
+      }
     };
     this.handleCreate = this.handleCreate.bind(this);
     this.handleCreateRow = this.handleCreateRow.bind(this);
@@ -131,9 +157,9 @@ class BusinessContainer extends Component {
     console.log('UPDATING LOGIC');
     this.setState({ focusLastRow: false });
   }
-
+ 
   render() {
-    {this.getDeals()}
+  console.log(this.state.chartOptions)   
     return (
       <div className="container-fluid">
         <h1>{this.state.business.name}</h1>
@@ -145,7 +171,10 @@ class BusinessContainer extends Component {
           create={this.handleCreate}
           delete={this.handleDelete}
         />
+        <h3>Last week's revenue</h3>
+        <BarChart data={this.state.chartData} options={this.state.chartOptions} width="600" height="250"/>
       </div>
+
     );
   }
 }
